@@ -6,8 +6,11 @@ import java.util.Map;
 public class ReceiptGenerator {
 
 	public void run(String[] args) throws IOException {
-		Map<Integer, Product> products = CsvLoader.loadProducts("./src/main/resources/products.csv");
-		Map<String, DiscountCard> discountCards = CsvLoader.loadDiscountCards("./src/main/resources/discountCards.csv");
+		ProductFactory productFactory = new DefaultProductFactory();
+		DiscountCardFactory discountCardFactory = new DefaultDiscountCardFactory();
+		CsvLoader csvLoader = new CsvLoader(productFactory, discountCardFactory);
+		Map<Integer, Product> products = csvLoader.loadProducts("./src/main/resources/products.csv");
+		Map<String, DiscountCard> discountCards = csvLoader.loadDiscountCards("./src/main/resources/discountCards.csv");
 
 		CommandLineParser parser = new CommandLineParser(args);
 		Receipt receipt = generateReceipt(parser, products, discountCards);
