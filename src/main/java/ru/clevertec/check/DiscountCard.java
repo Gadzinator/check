@@ -5,9 +5,9 @@ public class DiscountCard {
 	private String cardNumber;
 	private double discountRate;
 
-	public DiscountCard(String cardNumber, double discountRate) {
-		this.cardNumber = cardNumber;
-		this.discountRate = discountRate;
+	private DiscountCard(DiscountCardBuilder builder) {
+		this.cardNumber = builder.cardNumber;
+		this.discountRate = builder.discountRate;
 	}
 
 	public String getCardNumber() {
@@ -32,5 +32,24 @@ public class DiscountCard {
 				"cardNumber='" + cardNumber + '\'' +
 				", discountRate=" + discountRate +
 				'}';
+	}
+
+	public static class DiscountCardBuilder {
+		private String cardNumber;
+		private double discountRate;
+
+		public DiscountCardBuilder setCardNumber(String cardNumber) {
+			this.cardNumber = cardNumber;
+			return this;
+		}
+
+		public DiscountCardBuilder setDiscountRate(double discountRate) {
+			this.discountRate = discountRate;
+			return this;
+		}
+
+		public DiscountCard build() {
+			return new DiscountCard(this);
+		}
 	}
 }

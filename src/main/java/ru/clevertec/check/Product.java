@@ -2,58 +2,38 @@ package main.java.ru.clevertec.check;
 
 public class Product {
 
-	private int id;
-	private String description;
-	private double price;
-	private int quantityInStock;
-	private boolean isWholesale;
+	private final int id;
+	private final String description;
+	private final double price;
+	private final int quantityInStock;
+	private final boolean isWholesale;
 
-	public Product(int id, String description, double price, int quantityInStock, boolean isWholesale) {
-		this.id = id;
-		this.description = description;
-		this.price = price;
-		this.quantityInStock = quantityInStock;
-		this.isWholesale = isWholesale;
+	private Product(ProductBuilder builder) {
+		this.id = builder.id;
+		this.description = builder.description;
+		this.price = builder.price;
+		this.quantityInStock = builder.quantityInStock;
+		this.isWholesale = builder.isWholesale;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
 	public int getQuantityInStock() {
 		return quantityInStock;
 	}
 
-	public void setQuantityInStock(int quantityInStock) {
-		this.quantityInStock = quantityInStock;
-	}
-
 	public boolean isWholesale() {
 		return isWholesale;
-	}
-
-	public void setWholesale(boolean wholesale) {
-		isWholesale = wholesale;
 	}
 
 	@Override
@@ -65,5 +45,42 @@ public class Product {
 				", quantityInStock=" + quantityInStock +
 				", isWholesale=" + isWholesale +
 				'}';
+	}
+
+	public static class ProductBuilder {
+		private int id;
+		private String description;
+		private double price;
+		private int quantityInStock;
+		private boolean isWholesale;
+
+		public ProductBuilder setId(int id) {
+			this.id = id;
+			return this;
+		}
+
+		public ProductBuilder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public ProductBuilder setPrice(double price) {
+			this.price = price;
+			return this;
+		}
+
+		public ProductBuilder setQuantityInStock(int quantityInStock) {
+			this.quantityInStock = quantityInStock;
+			return this;
+		}
+
+		public ProductBuilder setIsWholesale(boolean isWholesale) {
+			this.isWholesale = isWholesale;
+			return this;
+		}
+
+		public Product build() {
+			return new Product(this);
+		}
 	}
 }
